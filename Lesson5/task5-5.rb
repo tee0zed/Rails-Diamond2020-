@@ -11,42 +11,39 @@ end
 
 puts "Сколько у вас рублей?"
 
-rub_ammount = gets.to_f
+rub_amount = gets.to_f
 
-while rub_ammount == 0
+while rub_amount == 0
   puts "Введите только число."
-  rub_ammount = gets.to_f
+  rub_amount = gets.to_f
 end
 
 puts "Сколько у вас долларов?"
 
-dol_ammount = gets.to_f
+dol_amount = gets.to_f
 
-while dol_ammount == 0
+while dol_amount == 0
   puts "Введите только число."
-  dol_ammount = gets.to_f
+  dol_amount = gets.to_f
 end
 
-#Приводим обе суммы к одному знаменателю. В этом случае рубли.
-dol_to_rub = (dol_ammount * current_rate).round(2)
+# Приводим обе суммы к одному знаменателю. В этом случае рубли.
+dol_to_rub = dol_amount * current_rate
+# Найдем абсолютную разницу в рублях которая пригодится нам позже.
+difference = (dol_to_rub - rub_amount).abs / 2
 
-#Если портфели равны.
-if rub_ammount == dol_to_rub
+# Если портфели равны или разница меньше одного цента.
+if difference < current_rate * 0.01
   puts "Perfectly balanced as all things should be..."
-
-#Если рублевый портфель оказывается больше
-elsif rub_ammount > dol_to_rub
-  #находим разницу, делим пополам на два потрфеля
-  difference = (rub_ammount - dol_to_rub) / 2
-  #и выясняем количество долларов которое нужно докупить
+# Если рублевый портфель оказывается больше
+elsif rub_amount > dol_to_rub
+  # и выясняем количество долларов которое нужно докупить
   sum_to_buy = difference / current_rate
-  #округляем до центов.
+  # округляем до центов и проверяем погрешность чтобы программа не давала
+  # вывод puts в случае, если погрешность меньше цента, но все же больше нуля.
   puts "Вам надо купить #{sum_to_buy.round(2)}$"
-
-#Еcли больше долларовый
-elsif rub_ammount < dol_to_rub
-  #так же ищем разницу и делим пополам,
-  sum_to_buy = (dol_to_rub - rub_ammount) / 2
-  #но в этот раз сумма нам нужна в рублях, так же округляем до сотых.
-  puts "Вам надо купить #{sum_to_buy.round(2)} Р"
+# Еcли больше долларовый
+else
+  # просто берем разницу в рублях.
+  puts "Вам надо купить #{difference.round(2)} Р"
 end
