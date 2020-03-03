@@ -66,8 +66,9 @@ score = 0
 questions.each do |question|
   puts "\n#{question}"
   puts "\n0) нет
-      \n1) иногда
-      \n2) да"
+  \n1) иногда
+  \n2) да"
+
   until answer =~ /^[0-2]{1}$/
     puts 'Выберите цифру.'
     answer = STDIN.gets.strip
@@ -87,17 +88,17 @@ end
 
 result = if score >= 30
            results[0]
-           elsif score.between?(25, 29)
+         elsif score.between?(25, 29)
            results[1]
-           elsif score.between?(19, 24)
+         elsif score.between?(19, 24)
            results[2]
-           elsif score.between?(14, 18)
+         elsif score.between?(14, 18)
            results[3]
-           elsif score.between?(9, 13)
+         elsif score.between?(9, 13)
            results[4]
-           elsif score.between?(4, 8)
+         elsif score.between?(4, 8)
            results[5]
-           elsif score.between?(0, 3)
+         elsif score.between?(0, 3)
            results[6]
          end
 

@@ -9,7 +9,12 @@ if file_path.nil?
   file_path = gets.strip
 end
 
-file = File.open(file_path, 'r')
+begin
+  file = File.open(file_path, 'r')
+rescue Errno::ENOENT
+  puts "Такого файла не существует."
+  exit
+end
 
 lines = file.readlines
 
