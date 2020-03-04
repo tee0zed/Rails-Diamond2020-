@@ -5,12 +5,12 @@ def give_me_da_animul(num, kot, kota, kotov)
 
   digit = num % 10
 
-  if num.digits[1] != 1
-    if digit == 1
-      kot
-    elsif digit.between?(2 ,4)
-      kota
-    end
+  if num.digits[1] == 1
+    kotov
+  elsif digit == 1
+    kot
+  elsif digit.between?(2, 4)
+    kota
   else
     kotov
   end
@@ -25,4 +25,4 @@ while input == 0
   input = STDIN.gets.to_i
 end
 
-puts give_me_da_animul(input, 'жираф', 'жирафа', 'жирафов')
+puts "Вот #{input} #{give_me_da_animul(input, 'жираф', 'жирафа', 'жирафов')}!"

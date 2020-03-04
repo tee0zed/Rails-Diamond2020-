@@ -4,32 +4,23 @@ number = rand(16)
 
 puts "Загадано число от 0 до 15, отгадайте какое?"
 
-3.times do
-  try = gets.strip
+try = 0
 
-  while try =~ /\D/
-    puts "Введите только числа."
-    try = gets.strip
-  end
+3.times do |tries|
 
-  try = try.to_i
+  try = gets.to_i
 
-  if try == number
-    puts "Вы отгадали!"
-    exit
-  elsif (number - try).abs < 4
-    if try < number
-      puts "Тепло (нужно больше)"
-    else
-      puts "Тепло (нужно меньше)"
-    end
-  else
-    if try < number
-      puts "Холодно (нужно боьше)"
-    else
-      puts "Холодно (нужно меньше)"
-    end
-  end
+  break if (try == number || tries == 3)
+
+  string = ((try - number).abs < 4 ? "Тепло." : "Холодно.")
+
+  string << (try < number ? " Нужно больше." : " Нужно меньше.")
+
+  puts string if tries < 2
 end
 
-puts "У вас не получилось отгадать. Это было число #{number}"
+if try == number
+  puts "Вы победили!"
+else
+  puts "У вас не получилось отгадать. Это было число #{number}"
+end
