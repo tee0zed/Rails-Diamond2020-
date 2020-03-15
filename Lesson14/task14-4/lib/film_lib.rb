@@ -10,7 +10,7 @@ class FilmLib
   private
 
   def get_directors
-    directors = Array.new
+    directors = []
 
     @films.each do |film|
       directors << film.director unless directors.include?(film.director)

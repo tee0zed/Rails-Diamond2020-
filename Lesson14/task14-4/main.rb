@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-require_relative './lib/film'
-require_relative './lib/film_lib'
+require_relative 'lib/film'
+require_relative 'lib/film_lib'
 
 path = './data/*'
 
@@ -18,19 +18,14 @@ questions.each do |q|
   puts "Фильм: #{q.title}"
   puts "Выберите режиссера."
 
-  answers = Array.new
+  answers = []
   answers << q.director
 
-  3.times do
-    try = library.films.sample
+  library.directors.delete(q.director)
 
-    while try.director == q.director
-      try = library.films.sample
-    end
+  answers << library.directors.sample(3)
 
-    answers << try.director
-    answers.shuffle!
-  end
+  answers.shuffle!.flatten!
 
   puts
   answers.each_with_index do |a, i|

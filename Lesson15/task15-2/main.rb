@@ -29,4 +29,4 @@ input = get_input(library.directors)
 
 film = library.get_random_film(input)
 
-film.to_string
+puts film.to_string

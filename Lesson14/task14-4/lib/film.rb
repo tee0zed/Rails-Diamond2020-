@@ -9,6 +9,6 @@ class Film
   end
 
   def to_string
-    puts "Фильм: #{@title}, Режиссер: #{@director}, Год: #{@year}"
+    "Фильм: #{@title}, Режиссер: #{@director}, Год: #{@year}"
   end
 end
