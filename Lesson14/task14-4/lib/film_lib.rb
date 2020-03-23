@@ -1,24 +1,18 @@
  # encoding: utf-8
 
 class FilmLib
-  attr_reader :films, :directors
+  attr_reader :films
   def initialize(path)
-    @films = get_films(path)
-    @directors = get_directors
+    @films = films_from_file(path)
+  end
+
+  def directors
+    @films.map { |film| film.director }.uniq
   end
 
   private
 
-  def get_directors
-    directors = []
-
-    @films.each do |film|
-      directors << film.director unless directors.include?(film.director)
-    end
-    directors
-  end
-
-  def get_films(path)
+  def films_from_file(path)
     films = Dir.glob(path)
     films.map { |film| Film.new(*File.readlines(film, chomp: true))}
   end
