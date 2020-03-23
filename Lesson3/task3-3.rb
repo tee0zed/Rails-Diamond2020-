@@ -40,5 +40,9 @@ puts greetings.sample
 
 sleep 1
 
+puts 'Когда вопрос будет задан, нажмите "enter" чтобы узнать ответ.'
+
+gets
+
 puts
 puts answers.sample

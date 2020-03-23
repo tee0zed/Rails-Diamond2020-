@@ -1,30 +1,44 @@
 # encoding: utf-8
 
-require_relative './lib/question'
+require_relative 'lib/quiz'
 
-questions = Question.get_questions
+def give_me_input(num, kot, kota, kotov)
+  digit = num % 10
 
-questions.shuffle!
+  if num.digits[1] == 1
+    kotov
+  elsif digit == 1
+    kot
+  elsif digit.between?(2, 4)
+    kota
+  else
+    kotov
+  end
+end
+
+questions = Quiz.get_questions
+
+array = questions.sample(5)
 
 score = 0
 
-questions.each do |question|
+array.each do |single|
   puts
-  puts question.question
-  puts "#{question.score} #{give_me_input(question.score, "балл", "балла", "баллов")}"
+  puts single.question
+  puts "#{single.score} #{give_me_input(score, "балл", "балла", "баллов")}"
 
   input = STDIN.gets.downcase.chomp
 
-  if input == question.answer
+  if input == single.answer
     puts "Правильно!"
-    score += question.score
+    score += single.score
     puts "У вас #{score} #{give_me_input(score, "балл", "балла", "баллов")}"
   else
-    puts "Неправильно: #{question.answer}"
+    puts "Неправильно: #{single.answer}"
   end
 
   sleep 1
-  puts "#{question.explanation}"
+  puts "#{single.explanation}"
 end
 
-puts "\nВы набрали #{score} #{give_me_input(score, "балл", "балла", "баллов")} из #{questions.inject(0){|sum, question| sum += question.score}} возможных."
+puts "\nВы набрали #{score} #{give_me_input(score, "балл", "балла", "баллов")} из #{array.inject(0){|sum, question| sum += question.score}} возможных."

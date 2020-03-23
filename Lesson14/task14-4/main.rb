@@ -3,7 +3,7 @@
 require_relative 'lib/film'
 require_relative 'lib/film_lib'
 
-path = './data/*'
+path = __dir__ + '/data/*'
 
 library = FilmLib.new(path)
 
@@ -13,12 +13,13 @@ puts "Сможете ли вы угадать режиссеров этих фи
 
 score = 0
 
-questions.each do |q|
+questions.each do |film|
   puts
-  puts "Фильм: #{q.title}"
+  puts "Фильм: #{film.title}"
   puts "Выберите режиссера."
 
   answers = []
+<<<<<<< Updated upstream
   answers << q.director
 
   library.directors.delete(q.director)
@@ -26,6 +27,17 @@ questions.each do |q|
   answers << library.directors.sample(3)
 
   answers.shuffle!.flatten!
+=======
+  answers << film.director
+
+  directors = library.directors
+
+  directors.delete(film.director)
+
+  answers += directors.sample(3)
+
+  answers.shuffle!
+>>>>>>> Stashed changes
 
   puts
   answers.each_with_index do |a, i|
@@ -39,13 +51,13 @@ questions.each do |q|
     input = gets.to_i
   end
 
-  if answers[input-1] == q.director
+  if answers[input-1] == film.director
     puts
     puts "Правильно!"
     score += 1
   else
     puts
-    puts "Неправильно! #{q.director}"
+    puts "Неправильно! #{film.director}"
   end
 end
 
