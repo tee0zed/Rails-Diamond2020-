@@ -3,6 +3,19 @@
 class Product
   attr_accessor :price, :amount
 
+  def self.from_file(path)
+    raise NotImplementedError
+  end
+
+  def buy
+    if self.amount > 0
+      self.amount -= 1
+      return self.price
+    else
+      nil
+    end
+  end
+
   def initialize(params)
     @price = params[:price]
     @amount = params[:amount]
@@ -13,11 +26,11 @@ class Product
     @amount = params[:amount] if params[:amount]
   end
 
-  def to_str
-    "#{@price} руб. (осталось #{@amount})"
+  def type
+    self.class.name.downcase
   end
 
-  def self.from_file(path)
-    raise NotImplementedError
+  def to_s
+    "#{@price} руб. (осталось #{@amount})"
   end
 end

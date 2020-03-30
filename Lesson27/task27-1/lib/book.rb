@@ -3,6 +3,18 @@
 class Book < Product
   attr_accessor :title, :genre, :author
 
+  def self.from_file(path)
+    params = File.readlines(path, chomp: true)
+
+    self.new(
+      title: params[0],
+      genre: params[1],
+      author: params[2],
+      price: params[3].to_i,
+      amount: params[4].to_i
+    )
+  end
+
   def initialize(params)
     super
 
@@ -19,19 +31,7 @@ class Book < Product
     @author = params[:author] if params[:author]
   end
 
-  def to_str
-    "#{@title} автор: #{@author} #{genre}, #{super}"
-  end
-
-  def self.from_file(path)
-    params = File.readlines(path, chomp: true)
-
-    self.new(
-      title: params[0],
-      genre: params[1],
-      author: params[2],
-      price: params[3].to_i,
-      amount: params[4].to_i
-    )
+  def to_s
+    "Книга: #{@title} автор: #{@author} #{genre}, #{super}"
   end
 end

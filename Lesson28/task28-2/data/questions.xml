@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<quiz>
+  <questions>
+    <question>Сколько alias методов существует у метода :select (не считая его самого)?</question>
+    <answer>2</answer>
+    <comment>find_all, filter</comment>
+  </questions>
+  <questions>
+    <question>Сколько alias методов у метода :map?</question>
+    <answer>1</answer>
+    <comment>collect</comment>
+  </questions>
+  <questions>
+    <question>В каком году была написана первая версия ruby?</question>
+    <answer>1995</answer>
+    <comment>21 декабря 1995 года.</comment>
+  </questions>
+  <questions>
+    <question>Сколько базовых типов данных (включая подключаемые) существует в Ruby?</question>
+    <answer>16</answer>
+    <comment>Вот они, слева направо: NilClass, TrueClass, FalseClass, Numeric, Integer, Float, Complex, Fixnum, Bignum, Time, Date, String, Range, Struct, Array, Hash.</comment>
+  </questions>
+  <questions>
+    <question>Как называется начинающий руби-программист? :)</question>
+    <answer>рубинчик</answer>
+    <comment>:)</comment>
+  </questions>
+</quiz>
