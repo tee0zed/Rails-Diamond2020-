@@ -41,10 +41,9 @@ class ProductCollection
       products_by_type(type)
     end
     .flatten
-    .map.with_index do |product, indx|
-    "#{indx+1} #{product.to_s}"
-    end
-    .join("\n")
+    .map.with_index(1) do |product, index|
+      "#{index}. #{product}"
+    end.join("\n")
   end
 
   def to_a

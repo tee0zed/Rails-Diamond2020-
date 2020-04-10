@@ -11,4 +11,3 @@ questions = QuestionGetter.from_xml(path)
 quiz = Quiz.new(questions)
 
 quiz.do_quiz
-

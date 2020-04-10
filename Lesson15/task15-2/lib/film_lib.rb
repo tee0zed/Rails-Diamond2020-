@@ -1,40 +1,36 @@
  # encoding: utf-8
 
-class FilmLib
-  attr_reader :films, :directors
-  def initialize(path)
-    @films = Array.new
-    @directors = Array.new
+require_relative 'kinopoisk_scrapper'
 
-    get_films(path)
-    get_directors
+class FilmLib
+  extend KinopoiskScrapper
+
+  attr_accessor :films, :directors
+
+  def self.from_dir(path)
+    films =
+    Dir.glob(path).map do |film|
+      Film.new(*File.readlines(film, chomp: true))
+    end
+    new(films)
   end
 
-  def get_random_film(input)
-    index = input - 1
+  def initialize(films)
+    @films = films
+    @directors = get_directors
+  end
 
-    director = @directors[index]
+  def get_random_film(index)
+    director = directors[index - 1]
+    films_to_choose = films
 
-    films_to_choose = Array.new
-
-    @films.each { |f| films_to_choose << f if f.director == director }
-
+    films_to_choose.select! { |f| f.director == director }
     films_to_choose.sample
   end
 
   private
 
   def get_directors
-    @films.each do |film|
-      @directors << film.director unless @directors.include?(film.director)
-    end
-  end
-
-  def get_films(path)
-    films = Dir.glob(path)
-
-    films.each do |film|
-      @films << Film.new(*File.readlines(film, chomp: true))
-    end
+    films.map { |film| film.director }.uniq
   end
 end
