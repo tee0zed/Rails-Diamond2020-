@@ -1,11 +1,11 @@
 # encoding: utf-8
 
 class CurrencyDiplomat
-  attr_reader :amount, :rate, :sym
+  attr_reader :amount, :rate, :name
 
-  def initialize(amount, rate, sym)
+  def initialize(amount, rate, name)
     @amount = amount
     @rate = rate
-    @sym = sym
+    @name = name
   end
 end

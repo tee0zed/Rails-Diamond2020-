@@ -1,47 +1,68 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 require 'clothing_item'
 require 'clothes_lib'
 
-describe ClothesLib do
-  pile = ClothesLib.create_lib('./spec/fixtures/')
+lib = ClothesLib.create_lib('./spec/fixtures/')
 
-  it 'ClothesLib#create_lib should create objects correctly' do
-    obj = pile.clothes_lib.first
+describe 'ClothesLib#create_lib' do
+  let(:item) { lib.clothes_lib.first }
 
-    expect(obj.name).to eq "куртка зимняя"
-    expect(obj.type).to eq "торс"
-    expect(obj.temperature_range).to eq [-15, -1]
+    it 'create objects correctly' do
+      expect(item.name).to eq 'толстовка'
+      expect(item.type).to eq 'торс'
+      expect(item.temperature_range).to eq [10, 19]
+    end
+
+    it 'create instance of ClothesLib class' do
+      expect(lib).to be_a_kind_of ClothesLib
+    end
+
+    it 'create all objects from dir' do
+      expect(lib.clothes_lib.count).to eq 3
+    end
   end
 
-  it 'ClothesLib#create_pile should create instance of ClothesLib class' do
-    expect(pile.class.name).to eq "ClothesLib"
-  end
 
-  it 'ClothesLib#initialize should get every ItemOfClothing instance from dir' do
-    expect(pile.clothes_lib.count).to eq 14
-  end
-
-  it 'ClothesLib#types sould have all clothes types' do
-    expect(pile.send(:types)).to eq ["торс", "обувь", "головной убор"]
-  end
-
-  it 'ClothesLib#by_type should return 3 arrays sorted by existing types' do
-    types = ["торс", "обувь", "головной убор"]
-    array = pile.send(:by_type, types)
-
-    expect(array[0].map { |obj| obj.type }.uniq).to eq ["торс"]
-    expect(array[1].map { |obj| obj.type }.uniq).to eq ["обувь"]
-    expect(array[2].map { |obj| obj.type }.uniq).to eq ["головной убор"]
-  end
-
-  it 'ClothesLib#match_clothes should return only matched by given temperature ClothingItem objects' do
-    temp = 15
-    result = pile.match_clothes(temp)
-
-    expect(result[0].name).to eq "толстовка"
-    expect(result[1].name).to eq "слипоны"
-    expect(result[2].name).to eq "панама"
+describe 'ClothesLib.types' do
+  context 'when lib is not empty' do
+    it 'get all types' do
+      expect(lib.send(:types)).to contain_exactly('торс', 'головной убор', 'обувь')
+    end
   end
 end
 
+describe 'ClothesLib.by_type' do
+  let(:types) { lib.send(:types) }
+  let(:array) { lib.send(:by_type, types) }
+
+  context 'when lib is not empty' do
+    it 'return sorted arrays' do
+      expect(array[0].first.type).to eq 'торс'
+      expect(array[1].first.type).to eq 'головной убор'
+      expect(array[2].first.type).to eq 'обувь'
+    end
+  end
+end
+
+describe 'ClothesLib.match_clothes' do
+  context 'when transferred matched temp' do
+    let(:temp) { 15 }
+    let(:result) { lib.match_clothes(temp) }
+
+    it 'return matched obj' do
+      expect(result[0].name).to eq 'толстовка'
+      expect(result[1].name).to eq 'панама'
+      expect(result[2].name).to eq 'слипоны'
+    end
+  end
+
+  context 'when transferred not matched temp' do
+    let(:temp) { -10 }
+    let(:result) { lib.match_clothes(temp) }
+
+    it 'return nil' do
+      expect(result).to be_empty
+    end
+  end
+end

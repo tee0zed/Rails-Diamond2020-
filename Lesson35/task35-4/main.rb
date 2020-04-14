@@ -1,38 +1,14 @@
 # encoding: utf-8
 
-require 'open-uri'
-require 'json'
-
 require_relative 'lib/equalizer'
 require_relative 'lib/currency_diplomat'
-
-def get_amount
-  input = gets.to_f
-  while input == 0
-    puts "Введите только число в формате 0.00"
-    input = gets.to_f
-  end
-  input
-end
-
-def get_name
-  currency = gets.strip
-  until currency =~ /^[a-z]{3}$/
-    puts "Введите например \'usd\'"
-    currency = gets.strip
-  end
-  currency
-end
+require_relative 'lib/methods'
 
 puts "Будьте готовы ввести актуальные курсы ваших валют и размеры валютных портфелей."
 
-begin
-  json = JSON.load(open('https://www.cbr-xml-daily.ru/daily_json.js'))
-rescue OpenURI::HTTPError
-  puts
-  puts "Не удалось загрузить курсы валют."
-  json = nil
-end
+json = Equalizer.load_json
+# метод вернет nil если по какой то ошибке json не подгрузится
+puts; puts "Не удалось загрузить курсы валют." if json.nil?
 
 input = 1
 
@@ -48,13 +24,11 @@ while input == 1
 
   amount = get_amount
 
-  if name == 'rub'
-    rate = 1
-  elsif json
-    rate = json["Valute"][name.upcase.chomp]["Value"].round(2)
-  else
+  rate = Equalizer.get_rate(name, json)
+
+  if rate.nil? # если rate не нашел такое значение в json или json - nil
     puts
-    puts "Введите её стоимость в рублях."
+    puts "Введите её курс"
     rate = get_amount
   end
 
