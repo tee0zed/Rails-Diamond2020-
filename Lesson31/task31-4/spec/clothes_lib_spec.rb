@@ -3,15 +3,16 @@
 require 'clothing_item'
 require 'clothes_lib'
 
-lib = ClothesLib.create_lib('./spec/fixtures/')
+describe 'ClothesLib' do
+  let(:lib) { ClothesLib.create_lib('./spec/fixtures/') }
 
-describe 'ClothesLib#create_lib' do
-  let(:item) { lib.clothes_lib.first }
+  describe '.create_lib' do
+    let(:clothes) { lib.clothes_lib.select { |item| item.name == 'толстовка' }.first }
 
-    it 'create objects correctly' do
-      expect(item.name).to eq 'толстовка'
-      expect(item.type).to eq 'торс'
-      expect(item.temperature_range).to eq [10, 19]
+    it 'assign vars correctly' do
+      expect(lib.clothes_lib.map(&:name)).to match_array %w[панама слипоны толстовка]
+      expect(lib.clothes_lib.map(&:type)).to match_array %w[головной\ убор обувь торс]
+      expect(lib.clothes_lib.map(&:temperature_range)).to eq [[10, 19], [15, 30], [15, 24]]
     end
 
     it 'create instance of ClothesLib class' do
@@ -23,46 +24,23 @@ describe 'ClothesLib#create_lib' do
     end
   end
 
+  describe '#match_clothes' do
+    context 'when transferred matched temp' do
+      let(:temp) { 20 }
+      let(:result) { lib.match_clothes(temp) }
 
-describe 'ClothesLib.types' do
-  context 'when lib is not empty' do
-    it 'get all types' do
-      expect(lib.send(:types)).to contain_exactly('торс', 'головной убор', 'обувь')
+      it 'return matched obj' do
+        expect(result.map(&:name)).to match_array %w[панама слипоны]
+      end
     end
-  end
-end
 
-describe 'ClothesLib.by_type' do
-  let(:types) { lib.send(:types) }
-  let(:array) { lib.send(:by_type, types) }
+    context 'when transferred not matched temp' do
+      let(:temp) { -10 }
+      let(:result) { lib.match_clothes(temp) }
 
-  context 'when lib is not empty' do
-    it 'return sorted arrays' do
-      expect(array[0].first.type).to eq 'торс'
-      expect(array[1].first.type).to eq 'головной убор'
-      expect(array[2].first.type).to eq 'обувь'
-    end
-  end
-end
-
-describe 'ClothesLib.match_clothes' do
-  context 'when transferred matched temp' do
-    let(:temp) { 15 }
-    let(:result) { lib.match_clothes(temp) }
-
-    it 'return matched obj' do
-      expect(result[0].name).to eq 'толстовка'
-      expect(result[1].name).to eq 'панама'
-      expect(result[2].name).to eq 'слипоны'
-    end
-  end
-
-  context 'when transferred not matched temp' do
-    let(:temp) { -10 }
-    let(:result) { lib.match_clothes(temp) }
-
-    it 'return nil' do
-      expect(result).to be_empty
+      it 'return empty array' do
+        expect(result).to be_empty
+      end
     end
   end
 end
