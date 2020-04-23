@@ -11,8 +11,8 @@ body {
 }
 
 .image-right {
-  float: left;
-  margin: auto 4rem 2rem 2rem;
+  float: right;
+  margin: auto 2rem 1rem 1rem;
   border: 6px solid gray;
 }
 
@@ -23,12 +23,11 @@ body {
 }
 
 .main {
-  font-size: 3rem;
+  font-size: 4rem;
   text-align: center;
   text-decoration-line: underline;
   margin: 1rem 0 3rem 0;
-  color: #ff6666;
-  text-shadow: 1px 1px 0px white;
+  color: #000066;
 }
 
 .underline {
