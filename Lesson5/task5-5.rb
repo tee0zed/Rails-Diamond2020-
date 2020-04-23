@@ -1,31 +1,44 @@
 # encoding: utf-8
 
-puts "Курс доллара?"
+require 'json'
+require 'open-uri'
 
-current_rate = gets.chomp.strip.to_f
+def load_json
+  begin
+    doc = open('https://www.cbr-xml-daily.ru/daily_json.js')
+    json = JSON.load(doc)
+    doc.close
+  rescue OpenURI::HTTPError, SocketError # поймаем 2 ошибки подключения
+  end
+  json
+end
 
-while current_rate == 0
-  puts "Введите только число."
-  current_rate = gets.to_f
+def get_amount
+  amount = 0
+  while amount == 0
+    puts "Введите только число."
+    amount = gets.to_f
+  end
+  amount
+end
+
+json = load_json
+
+if json.nil?
+  puts
+  puts "Не удалось загрузить курс доллара."
+  current_rate = get_amount
+else
+  current_rate = json["Valute"]["USD"]["Value"].round(2)
 end
 
 puts "Сколько у вас рублей?"
 
-rub_amount = gets.to_f
-
-while rub_amount == 0
-  puts "Введите только число."
-  rub_amount = gets.to_f
-end
+rub_amount = get_amount
 
 puts "Сколько у вас долларов?"
 
-dol_amount = gets.to_f
-
-while dol_amount == 0
-  puts "Введите только число."
-  dol_amount = gets.to_f
-end
+dol_amount = get_amount
 
 # Приводим обе суммы к одному знаменателю. В этом случае рубли.
 dol_to_rub = dol_amount * current_rate
@@ -33,7 +46,7 @@ dol_to_rub = dol_amount * current_rate
 difference = (dol_to_rub - rub_amount).abs / 2
 
 # Если портфели равны или разница меньше одного цента.
-if difference < current_rate * 0.01
+if difference <= 0.01 * current_rate
   puts "Perfectly balanced as all things should be..."
 # Если рублевый портфель оказывается больше
 elsif rub_amount > dol_to_rub

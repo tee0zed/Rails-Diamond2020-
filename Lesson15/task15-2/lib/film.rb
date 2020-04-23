@@ -2,13 +2,14 @@
 
 class Film
   attr_reader :title, :director, :year
+
   def initialize(title, year, director)
     @title = title
-    @director = director
     @year = year
+    @director = director
   end
 
   def to_string
-    "Фильм: #{@title}, Режиссер: #{@director}, Год: #{@year}"
+    "Фильм: #{title}, Режиссер: #{director}, Год: #{year}"
   end
 end

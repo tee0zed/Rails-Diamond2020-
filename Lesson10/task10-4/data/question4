@@ -1,0 +1,3 @@
+Сколько базовых типов данных (включая подключаемые) существует в Ruby?
+16
+Вот они, слева направо: NilClass, TrueClass, FalseClass, Numeric, Integer, Float, Complex, Fixnum, Bignum, Time, Date, String, Range, Struct, Array, Hash.

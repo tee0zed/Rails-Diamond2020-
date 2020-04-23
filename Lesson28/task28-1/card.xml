@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <person>
+    <name>
+      Тарас Жук
+    </name>
+    <phone>
+      +7 910 515 33 05
+    </phone>
+    <bio>
+      Начинающий Ruby-разработчик
+    </bio>
+  </person>
