@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -10,9 +11,13 @@ body {
   color: #404040;
 }
 
-.image-right {
-  float: left;
-  margin: 2rem 4rem 2rem 4rem;
+.responsive{
+  width: 100%;
+  height: auto;
+}
+
+.image {
+  margin: 1rem;
   border: 6px solid gray;
 }
 
@@ -21,13 +26,15 @@ body {
   font-family: Times New Roman, serif;
 }
 
+.rec p {
+  padding: 5px;
+}
+
 .main {
-  font-size: 3rem;
-  text-align: center;
-  text-decoration-line: underline;
-  margin: 1rem 0 3rem 0;
+  font-size: 4rem;
+  text-align: left;
+  margin: 2rem 0 2rem 0;
   color: #ff6666;
-  text-shadow: 1px 1px 0px white, 2px 1px  black;
 }
 
 .underline {
@@ -36,12 +43,12 @@ body {
 }
 
 .medium {
-  margin: 2rem 2rem 1rem 0;
+  margin: 0 0 1rem 0;
   font-size: 2rem;
 }
 
 .small {
-  margin: 0 2rem 1rem 0;
+  margin: 0 0 1rem 0;
   font-size: 1.5rem;
 }
 
@@ -64,41 +71,51 @@ a.link:hover {
 }
 
 /*grid*/
+.wrapper {
+  margin: 2rem 5rem 5rem 5rem;
+}
+
 .grid {
   display: grid;
-  grid-gap: 5px;
+  grid-template-columns:repeat(3, minmax(100px, 1fr));
   justify-content: center;
-}
-
-.wrapper {
-  margin: 2rem 10rem 2rem 10rem;
-  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
   grid-template-areas:
     "c01 c01 c02"
-    "c03 c03 c03";
+    "c03 c03 c03"
+    ". . .";
 }
 
-.c01 {
+@media(max-width: 800px) {
+  .grid {
+    grid-template-areas:
+        "c01 c01 ."
+        "c02 . ."
+        "c03 c03 c03";
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    justify-content: center;
+  }
+}
+
+
+.ing {
   grid-area: c01;
 }
 
-.c02 {
+.pic {
   grid-area: c02;
 }
 
-.c03 {
+.rec {
   grid-area: c03;
 }
 
 .two-columns {
-  grid-template-columns: 1fr 1fr
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
 /*text*/
-.text {
- margin: 2rem 0 2rem 0;
-}
-
 .align-right {
   text-align: right;
 }
@@ -114,6 +131,7 @@ a.link:hover {
 /*utils*/
 .list {
   margin: 0 0 0 0.8rem;
+  list-style: circle;
 }
 
 .list-item {
