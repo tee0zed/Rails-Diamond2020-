@@ -6,20 +6,19 @@
 body {
   background-color: #ffe0cc;
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: #404040;
 }
 
 .image-right {
   float: left;
-  margin: auto 4rem 2rem 2rem;
+  margin: 2rem 4rem 2rem 4rem;
   border: 6px solid gray;
 }
 
 /*paragraphs*/
 .paragraph {
   font-family: Times New Roman, serif;
-
 }
 
 .main {
@@ -34,12 +33,15 @@ body {
 .underline {
   text-align: left;
   border-bottom: 1px solid black;
-  margin: 3rem 2rem 0.5rem 2rem;
+}
+
+.medium {
+  margin: 2rem 2rem 1rem 0;
   font-size: 2rem;
 }
 
 .small {
-  margin: 2rem 2rem 0 2rem;
+  margin: 0 2rem 1rem 0;
   font-size: 1.5rem;
 }
 
@@ -61,35 +63,40 @@ a.link:hover {
   color: red;
 }
 
-/*flex-grid*/
+/*grid*/
+.grid {
+  display: grid;
+  grid-gap: 5px;
+  justify-content: center;
+}
+
 .wrapper {
-  margin: 2rem 0 2rem 0;
+  margin: 2rem 10rem 2rem 10rem;
+  grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+  grid-template-areas:
+    "c01 c01 c02"
+    "c03 c03 c03";
 }
 
-.row {
-  margin: 0.5rem 0 0.5rem 0;
-  display: flex;
+.c01 {
+  grid-area: c01;
 }
 
-.two-column {
-  flex: 50%;
+.c02 {
+  grid-area: c02;
 }
 
-.one-column {
-  flex: 100%;
+.c03 {
+  grid-area: c03;
 }
 
-.column-one-thirhd {
-  flex: 33.3%;
-}
-
-.colum-two-third {
-  flex:66.7%;
+.two-columns {
+  grid-template-columns: 1fr 1fr
 }
 
 /*text*/
 .text {
- margin: 0 3rem 0 3rem;
+ margin: 2rem 0 2rem 0;
 }
 
 .align-right {
@@ -100,7 +107,23 @@ a.link:hover {
   text-align: left;
 }
 
+.align-center {
+  text-align: center;
+}
+
 /*utils*/
+.list {
+  margin: 0 0 0 0.8rem;
+}
+
 .list-item {
-  margin: 1rem 0 1rem 1rem;
+  margin: 0.3rem 0 0.3rem 0;
+}
+
+.list-right {
+  margin: 1rem 0 1rem 15rem;
+}
+
+.list-left {
+  margin: 1rem 15rem 1rem 0;
 }
