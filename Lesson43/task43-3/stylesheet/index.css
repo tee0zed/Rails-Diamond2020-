@@ -88,8 +88,8 @@ a.link:hover {
 @media(max-width: 800px) {
   .grid {
     grid-template-areas:
-        "c01 c01 ."
-        "c02 . ."
+        "c01 c01 c01"
+        "c02 c02 c02"
         "c03 c03 c03";
     display: grid;
     grid-template-columns: repeat(3, minmax(100px, 1fr));

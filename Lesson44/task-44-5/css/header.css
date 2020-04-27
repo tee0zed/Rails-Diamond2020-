@@ -1,0 +1,13 @@
+.header {
+  top: 0;
+  width: 100%;
+  background-color: #066;
+  position: fixed;
+  opacity: 0.95;
+  z-index: 10000;
+}
+
+.header-nav {
+  display: inline-block;
+}
+

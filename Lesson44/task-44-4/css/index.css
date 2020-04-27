@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 20px;
+  font-family: "Impact", "Charcoal", sans-serif
+}
+
+p {
+  font-weight: lighter;
+}
+
+.wrapper {
+  padding: 6% 5%;
+}
+
+#main {
+  font-family: "Times New Roman", sans-serif;
+  font-size: 90px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  font-family: "Times New Roman", serif
+}
+
+.text {
+  padding: 10px;
+}
+
+.paragraph {
+  margin-bottom: 10px;
+}
+
+.image {
+  padding: 20px;
+  width: 30%;
+  height: auto;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
